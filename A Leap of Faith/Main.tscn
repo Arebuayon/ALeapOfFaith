@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/caida game.wav" type="AudioStream" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Mapa Fondo.png" type="Texture" id=5]
+
+[node name="Main" type="Node"]
+script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+
+[node name="Label" type="Label" parent="CanvasLayer/GUI"]
+margin_right = 8.0
+margin_bottom = 14.0
+rect_scale = Vector2( 3, 3 )
+text = "0"
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource( 2 )]
+modulate = Color( 1, 0.72549, 0, 1 )
+position = Vector2( 178, 45 )
+scale = Vector2( 0.2, 0.2 )
+ACCELERATION = 200
+FRICTION_WEIGHT = 0.2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+layer = -1
+follow_viewport_enable = true
+
+[node name="TextureRect" type="TextureRect" parent="Player/CanvasLayer"]
+margin_right = 543.0
+margin_bottom = 960.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="map_container" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 273, 479 )
+current = true
+script = ExtResource( 4 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -15.0
+autoplay = true
